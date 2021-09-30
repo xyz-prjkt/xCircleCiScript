@@ -1,17 +1,17 @@
 #!/usr/bin/env bash
 echo "Downloading few Dependecies . . ."
-git clone --depth=1 $kernel_source $device_codename
+git clone --depth=1 https://github.com/Synchroz/Santoni-4.9-synchroz santoni
 git clone --depth=1 https://github.com/xyz-prjkt/xRageTC-clang clang
 
 # Main
-KERNEL_NAME=$kernel_name # IMPORTANT ! Declare your kernel name
-KERNEL_ROOTDIR=$(pwd)/$device_codename # IMPORTANT ! Fill with your kernel source root directory.
-DEVICE_CODENAME=$device_codename # IMPORTANT ! Declare your device codename
-DEVICE_DEFCONFIG=$kernel_defconfig # IMPORTANT ! Declare your kernel source defconfig file here.
+KERNEL_NAME=Sirius # IMPORTANT ! Declare your kernel name
+KERNEL_ROOTDIR=$(pwd)/santoni # IMPORTANT ! Fill with your kernel source root directory.
+DEVICE_CODENAME=santoni # IMPORTANT ! Declare your device codename
+DEVICE_DEFCONFIG=santoni_defconfig # IMPORTANT ! Declare your kernel source defconfig file here.
 CLANG_ROOTDIR=$(pwd)/clang # IMPORTANT! Put your clang directory here.
-export KBUILD_BUILD_USER=xyzuan # Change with your own name or else.
-export KBUILD_BUILD_HOST=xyzscape-ci # Change with your own hostname.
-IMAGE=$(pwd)/lavender/out/arch/arm64/boot/Image.gz-dtb
+export KBUILD_BUILD_USER=Synchroz # Change with your own name or else.
+export KBUILD_BUILD_HOST=Bloodedge # Change with your own hostname.
+IMAGE=$(pwd)/santoni/out/arch/arm64/boot/Image.gz-dtb
 DATE=$(date +"%F-%S")
 START=$(date +"%s")
 PATH="${PATH}:${CLANG_ROOTDIR}/bin"
@@ -36,8 +36,8 @@ echo ================================================
 function compile() {
 
    # Your Telegram Group
-   curl -s -X POST "https://api.telegram.org/bot$token/sendMessage" \
-        -d chat_id="$chat_id" \
+   curl -s -X POST "https://api.telegram.org/bot2030871213:AAEnZeoBtgl-jdsIaXfoGswrkKtCNQ0hK2U/sendMessage" \
+        -d chat_id="-1001567409765" \
         -d "disable_web_page_preview=true" \
         -d "parse_mode=html" \
         -d text="<b>xKernelCompiler</b>%0ABUILDER NAME : <code>${KBUILD_BUILD_USER}</code>%0ABUILDER HOST : <code>${KBUILD_BUILD_HOST}</code>%0ADEVICE DEFCONFIG : <code>${DEVICE_DEFCONFIG}</code>%0ACLANG VERSION : <code>$(${CLANG_ROOTDIR}/bin/clang --version | head -n 1 | perl -pe 's/\(http.*?\)//gs' | sed -e 's/  */ /g')</code>%0ACLANG ROOTDIR : <code>${CLANG_ROOTDIR}</code>%0AKERNEL ROOTDIR : <code>${KERNEL_ROOTDIR}</code>"
@@ -53,7 +53,7 @@ function compile() {
 	finerr
 	exit 1
    fi
-    git clone --depth=1 $anykernel AnyKernel
+    git clone --depth=1 https://github.com/Synchroz/AnyKernel AnyKernel
 	cp out/arch/arm64/boot/Image.gz-dtb AnyKernel
 }
 
@@ -61,8 +61,8 @@ function compile() {
 function push() {
     cd AnyKernel
     ZIP=$(echo *.zip)
-    curl -F document=@$ZIP "https://api.telegram.org/bot$token/sendDocument" \
-        -F chat_id="$chat_id" \
+    curl -F document=@$ZIP "https://api.telegram.org/bot2030871213:AAEnZeoBtgl-jdsIaXfoGswrkKtCNQ0hK2U/sendDocument" \
+        -F chat_id="-1001567409765" \
         -F "disable_web_page_preview=true" \
         -F "parse_mode=html" \
         -F caption="Compile took $(($DIFF / 60)) minute(s) and $(($DIFF % 60)) second(s). | For <b>Xiaomi Redmi Note 7 (lavender)</b> | <b>$(${CLANG_ROOTDIR}/bin/clang --version | head -n 1 | perl -pe 's/\(http.*?\)//gs' | sed -e 's/  */ /g')</b>"
@@ -70,8 +70,8 @@ function push() {
 }
 # Fin Error
 function finerr() {
-    curl -s -X POST "https://api.telegram.org/bot$token/sendMessage" \
-        -d chat_id="$chat_id" \
+    curl -s -X POST "https://api.telegram.org/bot2030871213:AAEnZeoBtgl-jdsIaXfoGswrkKtCNQ0hK2U/sendMessage" \
+        -d chat_id="-1001567409765" \
         -d "disable_web_page_preview=true" \
         -d "parse_mode=markdown" \
         -d text="Build throw an error(s)"
