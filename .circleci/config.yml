@@ -6,8 +6,11 @@ jobs:
    steps:
       - run:
           command: |
+           git config --global user.name "Synchroz"
+           git config --global user.email "juliyanto1071@student.untan.ac.id"
+           git config --global color.ui false
            git clone --depth=1 https://github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME} script
-           bash script/.circleci/build.sh
+           bash script/.circleci/Clangbuild.sh
 workflows:
   version: 2.1
   cooking:
